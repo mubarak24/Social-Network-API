@@ -17,6 +17,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network-
 // Routes
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/thoughts', require('./routes/thoughtRoutes'));
+app.use('/api/thoughts', require('./routes/reactionRoutes'));
 
 app.use((req, res) => {
   res.status(404).json({ error: 'Route not found' });
