@@ -16,7 +16,6 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const thought = await Thought.findById(req.params.id)
-      .populate('reactions');
     if (!thought) {
       return res.status(404).json({ error: 'Thought not found' });
     }
