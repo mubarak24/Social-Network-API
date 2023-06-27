@@ -13,9 +13,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/social-network-api', {
 })
   .then(() => {
     console.log('MongoDB connected');
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
   })
   .catch((error) => {
     console.error('MongoDB connection failed', error);
