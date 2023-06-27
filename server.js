@@ -2,23 +2,25 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost/social_network', {
-  useNewUrlParser: true,
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network-api', {
   useUnifiedTopology: true,
+  useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false
-}).then(() => {
-  console.log('Connected to MongoDB');
-}).catch((error) => {
-  console.log('MongoDB connection error:', error);
 });
 
-// Start the server
+// Routes
+app.use('/api/users', require('./routes/userRoutes'));
+
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
