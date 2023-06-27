@@ -7,22 +7,30 @@ const PORT = process.env.PORT || 3001;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/social-network-api', {
-  useUnifiedTopology: true,
+mongoose.connect('mongodb://127.0.0.1:27017/social-network-api', {
   useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-});
+  useUnifiedTopology: true
+})
+  .then(() => {
+    console.log('MongoDB connected');
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error('MongoDB connection failed', error);
+  });
 
 // Routes
-app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/thoughts', require('./routes/thoughtRoutes'));
-app.use('/api/thoughts', require('./routes/reactionRoutes'));
+const userRoutes = require('./routes/userRoutes');
+const thoughtRoutes = require('./routes/thoughtRoutes');
+const reactionRoutes = require('./routes/reactionRoutes');
 
-app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found' });
-});
+app.use('/api/users', userRoutes);
+app.use('/api/thoughts', thoughtRoutes);
+app.use('/api/thoughts/:thoughtId/reactions', reactionRoutes);
 
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
