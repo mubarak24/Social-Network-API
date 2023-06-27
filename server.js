@@ -22,10 +22,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/social-network-api', {
 const userRoutes = require('./routes/userRoutes');
 const thoughtRoutes = require('./routes/thoughtRoutes');
 const reactionRoutes = require('./routes/reactionRoutes');
+const friendRoutes = require('./routes/friendRoutes');
 
 app.use('/api/users', userRoutes);
 app.use('/api/thoughts', thoughtRoutes);
 app.use('/api/thoughts/:thoughtId/reactions', reactionRoutes);
+app.use('/api/users/:userId/friends', friendRoutes);
 
 // Start the server
 app.listen(PORT, () => {
