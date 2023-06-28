@@ -26,4 +26,4 @@ https://github.com/mubarak24/Social-Network-API
 
 ## Screenshot/Video
 
-![Link to Video]() 
+![Link to Video](https://drive.google.com/file/d/1AviQt2buBgca70cnJap-bhqr5G9aLBxT/view?usp=drive_link) 
